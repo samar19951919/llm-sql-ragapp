@@ -1,0 +1,22 @@
+# Dockerfile
+FROM python:3.11-slim
+
+# Install system dependencies for psycopg / postgres
+RUN apt-get update && apt-get install -y \
+    build-essential libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Install Python deps first (better caching)
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of your code
+COPY . .
+
+# Expose the port FastAPI will listen on
+EXPOSE 8000
+
+# Start FastAPI via uvicorn
+CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
