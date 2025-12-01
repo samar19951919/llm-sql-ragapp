@@ -46,7 +46,7 @@ def build_customer_docs(db:Session) -> Tuple[List[str],List[Dict[str,Any]]]:
 
     #now fetching the folloowing views 
 
-    rows,cols = fetch_view_rows(db,"customer_profile_docs_with_id")
+    rows,cols = fetch_view_rows(db,"customer_profile_docs")
 
     # now defig the variable for text and meta data
 
@@ -129,7 +129,7 @@ def build_film_docs(db: Session) -> Tuple[List[str], List[Dict[str, Any]]]:
     Build text + metadata for film profiles from:
       view: film_profile_docs_with_id
     """
-    rows, cols = fetch_view_rows(db, "film_profile_docs_with_id")
+    rows, cols = fetch_view_rows(db, "film_profile_docs")
 
     texts: List[str] = []
     metadatas: List[Dict[str, Any]] = []
@@ -201,7 +201,7 @@ def build_actor_docs(db: Session) -> Tuple[List[str], List[Dict[str, Any]]]:
     Build text + metadata for actor profiles from:
       view: actor_profile_docs_with_id
     """
-    rows, cols = fetch_view_rows(db, "actor_profile_docs_with_id")
+    rows, cols = fetch_view_rows(db, "actor_profile_docs")
 
     texts: List[str] = []
     metadatas: List[Dict[str, Any]] = []
@@ -281,6 +281,7 @@ def ingest_all_profiles(db: Session) -> Dict[str, int]:
 
 
      
+
 
 
 
