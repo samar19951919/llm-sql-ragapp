@@ -1,16 +1,17 @@
-# app/dependencies.py
+# dependencies.py
 from fastapi import Depends
 from sqlalchemy.orm import Session
 
-from app.db.session import get_db
-from app.rag.retrievers import get_base_retriever
+from db.session import get_db
+from rag.retrievers import get_base_retriever
 
 
 def get_db_session() -> Session:
     """
     Alias wrapper so you can swap logic later if you want.
     """
-    from app.db.session import get_db as _get_db
+    from db.session import get_db as _get_db
+
     return next(_get_db())  # For non-FastAPI usage
 
 

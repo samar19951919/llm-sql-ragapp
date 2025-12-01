@@ -1,16 +1,16 @@
-# app/api/routes_admin.py
+# api/routes_admin.py
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.db.session import get_db
-from app.rag.index_builders import (
+from db.session import get_db
+from rag.index_builders import (
     ingest_customers,
     ingest_films,
     ingest_actors,
     ingest_all_profiles,
 )
-from app.schemas.admin import (
+from schemas.admin import (
     ReindexEntityResponse,
     ReindexProfilesResponse,
 )

@@ -6,7 +6,7 @@ from sqlalchemy import  text
 
 # importing the ddb from th elocal file 
 
-from app.db.vectorstore import get_vectorstore
+from db.vectorstore import get_vectorstore
 
 # now here we are creatinag a functio to fetch th required views
 

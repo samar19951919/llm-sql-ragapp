@@ -2,8 +2,8 @@
 
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
-from app.rag.index_builders import ingest_customers
+from db.session import SessionLocal
+from rag.index_builders import ingest_customers
 
 
 def main() -> None:

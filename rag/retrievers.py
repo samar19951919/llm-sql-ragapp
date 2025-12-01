@@ -1,28 +1,25 @@
 from langchain_classic.retrievers import ContextualCompressionRetriever
 from langchain_openai import ChatOpenAI
 from langchain_community.document_compressors import LLMLinguaCompressor
-from app.core.configs import settings
 from langchain_core.vectorstores import VectorStoreRetriever
-from app.db.vectorstore import get_vectorstore
+
+from core.configs import settings
+from db.vectorstore import get_vectorstore
 
 
-# now gedeclaring the base retriever
+# now declaring the base retriever
 
 def get_base_retriever() -> VectorStoreRetriever:
-
     vs = get_vectorstore()
+    return vs.as_retriever(search_kwargs={"k": 3})
 
-    return vs.as_retriever(kwargs=3)
 
-#b noew declaring the m,ethod to get the 
-
+# now declaring the method to get the compressed retriever
 
 def get_compressed_retriver() -> ContextualCompressionRetriever:
+    # more fancier retriever that first retrieves then use llm to compress the context
 
-    #more fancier retriver that first retrives then use llm to compress the coontext
-
-    llm = ChatOpenAI(model = settings.CHAT_MODEL)
+    llm = ChatOpenAI(model=settings.CHAT_MODEL)
     compressor = LLMLinguaCompressor.from_llm(llm)
     base = get_base_retriever()
-    return ContextualCompressionRetriever(base_retriever = base,compressor = compressor)
-
+    return ContextualCompressionRetriever(base_retriever=base, compressor=compressor)
