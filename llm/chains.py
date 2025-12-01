@@ -1,12 +1,13 @@
 # app/llm/chains.py
-from typing import Dict, Any
-from sqlalchemy.orm import Session
-from langchain_core.runnables import RunnablePassthrough, RunnableParallel
-from langchain_core.output_parsers import StrOutputParser
+from typing import Any, Dict
 
-from app.llm.client import get_chat_model
-from app.llm.prompts import RAG_PROMPT
-from app.rag.retrievers import get_base_retriever
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+from sqlalchemy.orm import Session
+
+from llm.client import get_chat_model
+from llm.prompts import RAG_PROMPT
+from rag.retrievers import get_base_retriever
 
 
 def build_rag_chain():

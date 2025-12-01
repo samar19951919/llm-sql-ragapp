@@ -3,9 +3,9 @@ from fastapi.responses import HTMLResponse
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.core.logging_config import configure_logging
-from app.api.routes_chat import router as chat_router
-from app.api.routes_admin import router as admin_router
+from core.logging_config import configure_logging
+from api.routes_chat import router as chat_router
+from api.routes_admin import router as admin_router
 
 def create_app() -> FastAPI:
 
@@ -24,8 +24,8 @@ def create_app() -> FastAPI:
         allow_headers=["*"],
     )
 
-    app.include_router(chat_router, prefix="/chat", tags=["chat"])
-    app.include_router(admin_router, prefix="/admin", tags=["admin"])
+    app.include_router(chat_router, tags=["chat"])
+    app.include_router(admin_router, tags=["admin"])
 
     @app.get("/", response_class=HTMLResponse)
     def index():

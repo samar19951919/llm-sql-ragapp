@@ -1,11 +1,11 @@
-# app/api/routes_chat.py
+# api/routes_chat.py
 
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
-from app.db.session import get_db
-from app.schemas.chat import ChatRequest, ChatResponse
-from app.llm.chains import answer_question_with_rag
+from db.session import get_db
+from schemas.chat import ChatRequest, ChatResponse
+from llm.chains import answer_question_with_rag
 
 router = APIRouter(prefix="/chat", tags=["chat"])
 
