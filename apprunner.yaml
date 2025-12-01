@@ -1,22 +1,25 @@
-# Dockerfile
-FROM python:3.11-slim
+# apprunner.yaml
+version: 1.0
+runtime: python311
 
-# Install system dependencies for psycopg / postgres
-RUN apt-get update && apt-get install -y \
-    build-essential libpq-dev \
-    && rm -rf /var/lib/apt/lists/*
+build:
+  commands:
+    build:
+      # Install dependencies into the App Runner environment
+      - pip3 install --upgrade pip
+      - pip3 install -r requirements.txt
 
-WORKDIR /app
+run:
+  runtime-version: 3.11
+  # This starts your FastAPI app
+  command: python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
 
-# Install Python deps first (better caching)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+  # Tell App Runner which port the app listens on
+  network:
+    port: 8000
+    env: PORT
 
-# Copy the rest of your code
-COPY . .
-
-# Expose the port FastAPI will listen on
-EXPOSE 8000
-
-# Start FastAPI via uvicorn
-CMD ["python", "-m", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+  # Optional non-secret env vars (secrets go in console or Secrets Manager)
+  env:
+    - name: LOG_LEVEL
+      value: "INFO"
